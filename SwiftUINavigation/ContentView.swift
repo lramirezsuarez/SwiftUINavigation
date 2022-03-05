@@ -1,0 +1,21 @@
+//
+//  ContentView.swift
+//  SwiftUINavigation
+//
+//  Created by Luis Alejandro Ramirez Suarez on 5/03/22.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, world!")
+            .padding()
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
