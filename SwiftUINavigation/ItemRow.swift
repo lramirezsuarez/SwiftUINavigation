@@ -12,13 +12,14 @@ class ItemRowViewModel: Identifiable, ObservableObject {
     @Published var item: Item
     @Published var route: Route?
     
-    enum Route {
+    enum Route: Equatable {
         case deleteAlert
         case duplicate(Item)
         case edit(Item)
     }
     
     var onDelete: () -> Void = {}
+    var onDuplicate: (Item) -> Void = { _ in }
     
     var id: Item.ID { self.item.id }
     
@@ -47,6 +48,21 @@ class ItemRowViewModel: Identifiable, ObservableObject {
     
     func cancelButtonTapped() {
         self.route = nil
+    }
+    
+    func duplicateButtonTapped() {
+        self.route = .duplicate(self.item.duplicate())
+    }
+    
+    func duplicate(item: Item) {
+        self.onDuplicate(item)
+        self.route = nil
+    }
+}
+
+extension Item {
+    func duplicate() -> Self {
+        .init(name: self.name, color: self.color, status: self.status)
     }
 }
 
@@ -86,6 +102,15 @@ struct ItemRowView: View {
             
             Button(
                 action: {
+                    self.viewModel.duplicateButtonTapped()
+                }
+            ) {
+                Image(systemName: "square.fill.on.square.fill")
+            }
+            .padding(.leading)
+            
+            Button(
+                action: {
                     self.viewModel.deleteButtonTapped()
                 }
             ) {
@@ -105,11 +130,32 @@ struct ItemRowView: View {
         }, message: {
             Text("Are you sure you want to delete this item?")
         })
-                .sheet(unwrap: self.$viewModel.route.case(/ItemRowViewModel.Route.edit)
+        .sheet(
+            unwrap: self.$viewModel.route.case(/ItemRowViewModel.Route.edit)
+        ) { $item in
+            NavigationView {
+                ItemView(item: $item)
+                .navigationBarTitle("Edit")
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") {
+                            self.viewModel.cancelButtonTapped()
+                        }
+                    }
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("Save") {
+                            self.viewModel.edit(item: item)
+                        }
+                    }
+                }
+            }
+        }
+                .popover(
+                    unwrap: self.$viewModel.route.case(/ItemRowViewModel.Route.duplicate)
                 ) { $item in
                     NavigationView {
                         ItemView(item: $item)
-                            .navigationBarTitle("Edit")
+                            .navigationBarTitle("Duplicate")
                             .toolbar {
                                 ToolbarItem(placement: .cancellationAction) {
                                     Button("Cancel") {
@@ -117,12 +163,12 @@ struct ItemRowView: View {
                                     }
                                 }
                                 ToolbarItem(placement: .primaryAction) {
-                                    Button("Save") {
-                                        self.viewModel.edit(item: item)
+                                    Button("Add") {
+                                        self.viewModel.duplicate(item: item)
                                     }
                                 }
                             }
-                    }
+                    }.frame(minWidth: 300, maxWidth: 500)
                 }
     }
 }
