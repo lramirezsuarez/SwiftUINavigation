@@ -59,6 +59,36 @@ extension Binding {
 }
 
 extension View {
+    func alert<A: View, M: View, Enum, Case>(
+        title: (Case) -> Text,
+        unwrap data: Binding<Enum?>,
+        case casePath: CasePath<Enum, Case>,
+        @ViewBuilder actions: @escaping (Case) -> A,
+        @ViewBuilder message: @escaping (Case) -> M
+    ) -> some View {
+        self.alert(
+            title: title,
+            presenting: data.case(casePath),
+            actions: actions,
+            message: message
+        )
+    }
+    
+    func confirmationDialog<A: View, M: View, Enum, Case>(
+        title: (Case) -> Text,
+        unwrap data: Binding<Enum?>,
+        case casePath: CasePath<Enum, Case>,
+        @ViewBuilder actions: @escaping (Case) -> A,
+        @ViewBuilder message: @escaping (Case) -> M
+    ) -> some View {
+        self.confirmationDialog(
+            title: title,
+            presenting: data.case(casePath),
+            actions: actions,
+            message: message
+        )
+    }
+    
     func alert<A: View, M: View, T>(
         title: (T) -> Text,
         presenting data: Binding<T?>,
@@ -129,12 +159,28 @@ extension Binding {
 }
 
 extension View {
+    func sheet<Enum, Case, Content>(
+        unwrap optionalValue: Binding<Enum?>,
+        case casePath: CasePath<Enum, Case>,
+        @ViewBuilder content: @escaping (Binding<Case>) -> Content
+    ) -> some View where Case: Identifiable, Content: View {
+        self.sheet(unwrap: optionalValue.case(casePath), content: content)
+    }
+    
     func sheet<Value, Content>( unwrap optionalValue: Binding<Value?>, @ViewBuilder content: @escaping (Binding<Value>) -> Content) -> some View where Value: Identifiable, Content: View {
         self.sheet(item: optionalValue) { _ in
             if let value = Binding(unwrap: optionalValue) {
                 content(value)
             }
         }
+    }
+    
+    func popover<Enum, Case, Content>(
+        unwrap optionalValue: Binding<Enum?>,
+        case casePath: CasePath<Enum, Case>,
+        @ViewBuilder content: @escaping (Binding<Case>) -> Content
+    ) -> some View where Case: Identifiable, Content: View {
+        self.popover(unwrap: optionalValue.case(casePath), content: content)
     }
     
     func popover<Value, Content>( unwrap optionalValue: Binding<Value?>, @ViewBuilder content: @escaping (Binding<Value>) -> Content) -> some View where Value: Identifiable, Content: View {
@@ -178,3 +224,29 @@ extension Binding {
         )
     }
 }
+
+extension NavigationLink {
+    init<Enum, Case, WrappedDestination>(
+        unwrap optionalValue: Binding<Enum?>,
+        case casePath: CasePath<Enum, Case>,
+        onNavigate: @escaping (Bool) -> Void,
+        @ViewBuilder destination: @escaping (Binding<Case>) -> WrappedDestination,
+        @ViewBuilder label: @escaping () -> Label
+    )
+    where Destination == WrappedDestination?
+    {
+        self.init(
+            unwrap: optionalValue.case(casePath),
+            onNavigate: onNavigate,
+            destination: destination,
+            label: label
+        )
+    }
+}
+
+// .sheet:         (Binding<E?>, CasePath<E, C>, (Binding<C>) -> some View) -> some View
+// .popover:       (Binding<E?>, CasePath<E, C>, (Binding<C>) -> some View) -> some View
+// .alert:         (Binding<E?>, CasePath<E, C>, (Binding<C>) -> some View) -> some View
+// .dialog:        (Binding<E?>, CasePath<E, C>, (Binding<C>) -> some View) -> some View
+// NavLink.init:   (Binding<E?>, CasePath<E, C>, (Binding<C>) -> some View) -> NavLink
+// IfCaseLet.init: (Binding<E>,  CasePath<E, C>, (Binding<C>) -> some View) -> IfCaseLet
