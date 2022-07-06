@@ -26,6 +26,15 @@
         "revision" : "680bf440178a78a627b1c2c64c0855f6523ad5b9",
         "version" : "0.3.2"
       }
+    },
+    {
+      "identity" : "swift-parsing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-parsing.git",
+      "state" : {
+        "revision" : "bd38abcaed5b4cf893ebdc8dd1a962a79d047ded",
+        "version" : "0.4.0"
+      }
     }
   ],
   "version" : 2

@@ -17,6 +17,7 @@
 		2E29058B27D3A7F50005D97E /* SwiftUINavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E29058A27D3A7F50005D97E /* SwiftUINavigationUITests.swift */; };
 		2E29058D27D3A7F50005D97E /* SwiftUINavigationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E29058C27D3A7F50005D97E /* SwiftUINavigationUITestsLaunchTests.swift */; };
 		2E75666C282DC37A009457A8 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E75666B282DC37A009457A8 /* ItemRow.swift */; };
+		2E92093D2876103C00F0337C /* Parsing in Frameworks */ = {isa = PBXBuildFile; productRef = 2E92093C2876103C00F0337C /* Parsing */; };
 		2EAC0DF727D3AECD002FCE78 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAC0DF627D3AECD002FCE78 /* Inventory.swift */; };
 		2EAC0DFA27D3B906002FCE78 /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 2EAC0DF927D3B906002FCE78 /* IdentifiedCollections */; };
 		2EAC0DFC27D3BF7D002FCE78 /* SwiftUIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAC0DFB27D3BF7D002FCE78 /* SwiftUIHelpers.swift */; };
@@ -52,6 +53,7 @@
 		2E29058A27D3A7F50005D97E /* SwiftUINavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUINavigationUITests.swift; sourceTree = "<group>"; };
 		2E29058C27D3A7F50005D97E /* SwiftUINavigationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUINavigationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2E75666B282DC37A009457A8 /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
+		2E9209322874D8C200F0337C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2EAC0DF627D3AECD002FCE78 /* Inventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
 		2EAC0DFB27D3BF7D002FCE78 /* SwiftUIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E92093D2876103C00F0337C /* Parsing in Frameworks */,
 				2EAC0DFA27D3B906002FCE78 /* IdentifiedCollections in Frameworks */,
 				2E1FD44328248DB2004CF2F7 /* CasePaths in Frameworks */,
 			);
@@ -106,6 +109,7 @@
 		2E29056E27D3A7F40005D97E /* SwiftUINavigation */ = {
 			isa = PBXGroup;
 			children = (
+				2E9209322874D8C200F0337C /* Info.plist */,
 				2E29056F27D3A7F40005D97E /* SwiftUINavigationApp.swift */,
 				2E29057127D3A7F40005D97E /* ContentView.swift */,
 				2EAC0DF627D3AECD002FCE78 /* Inventory.swift */,
@@ -162,6 +166,7 @@
 			packageProductDependencies = (
 				2EAC0DF927D3B906002FCE78 /* IdentifiedCollections */,
 				2E1FD44228248DB2004CF2F7 /* CasePaths */,
+				2E92093C2876103C00F0337C /* Parsing */,
 			);
 			productName = SwiftUINavigation;
 			productReference = 2E29056C27D3A7F40005D97E /* SwiftUINavigation.app */;
@@ -238,6 +243,7 @@
 			packageReferences = (
 				2EAC0DF827D3B906002FCE78 /* XCRemoteSwiftPackageReference "swift-identified-collections" */,
 				2E1FD44128248DB2004CF2F7 /* XCRemoteSwiftPackageReference "swift-case-paths" */,
+				2E92093B2876103C00F0337C /* XCRemoteSwiftPackageReference "swift-parsing" */,
 			);
 			productRefGroup = 2E29056D27D3A7F40005D97E /* Products */;
 			projectDirPath = "";
@@ -450,6 +456,7 @@
 				DEVELOPMENT_TEAM = 8Y2NMD7UXB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SwiftUINavigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -479,6 +486,7 @@
 				DEVELOPMENT_TEAM = 8Y2NMD7UXB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SwiftUINavigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -623,6 +631,14 @@
 				minimumVersion = 0.8.1;
 			};
 		};
+		2E92093B2876103C00F0337C /* XCRemoteSwiftPackageReference "swift-parsing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-parsing.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.4.0;
+			};
+		};
 		2EAC0DF827D3B906002FCE78 /* XCRemoteSwiftPackageReference "swift-identified-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-identified-collections.git";
@@ -638,6 +654,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E1FD44128248DB2004CF2F7 /* XCRemoteSwiftPackageReference "swift-case-paths" */;
 			productName = CasePaths;
+		};
+		2E92093C2876103C00F0337C /* Parsing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E92093B2876103C00F0337C /* XCRemoteSwiftPackageReference "swift-parsing" */;
+			productName = Parsing;
 		};
 		2EAC0DF927D3B906002FCE78 /* IdentifiedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
